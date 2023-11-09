@@ -39,10 +39,10 @@
               @keyup.enter.native="handleQuery"
             />
           </el-form-item>
-          <el-form-item label="手机号码" prop="phonenumber">
+          <el-form-item label="学号" prop="phonenumber">
             <el-input
               v-model="queryParams.phonenumber"
-              placeholder="请输入手机号码"
+              placeholder="请输入学号"
               clearable
               style="width: 240px"
               @keyup.enter.native="handleQuery"
@@ -63,7 +63,7 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="创建时间">
+          <el-form-item label="入学时间">
             <el-date-picker
               v-model="dateRange"
               style="width: 240px"
@@ -142,7 +142,7 @@
           <el-table-column label="用户名称" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
           <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
           <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
+          <el-table-column label="学号" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
           <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
             <template slot-scope="scope">
               <el-switch
@@ -153,7 +153,7 @@
               ></el-switch>
             </template>
           </el-table-column>
-          <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
+          <el-table-column label="入学时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
             <template slot-scope="scope">
               <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
@@ -219,8 +219,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="手机号码" prop="phonenumber">
-              <el-input v-model="form.phonenumber" placeholder="请输入手机号码" maxlength="11" />
+            <el-form-item label="学号" prop="phonenumber">
+              <el-input v-model="form.phonenumber" placeholder="请输入学号" maxlength="11" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -418,9 +418,9 @@ export default {
         { key: 1, label: `用户名称`, visible: true },
         { key: 2, label: `用户昵称`, visible: true },
         { key: 3, label: `部门`, visible: true },
-        { key: 4, label: `手机号码`, visible: true },
+        { key: 4, label: `学号`, visible: true },
         { key: 5, label: `状态`, visible: true },
-        { key: 6, label: `创建时间`, visible: true }
+        { key: 6, label: `入学时间`, visible: true }
       ],
       // 表单校验
       rules: {
@@ -445,7 +445,7 @@ export default {
         phonenumber: [
           {
             pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
-            message: "请输入正确的手机号码",
+            message: "请输入正确的学号",
             trigger: "blur"
           }
         ]

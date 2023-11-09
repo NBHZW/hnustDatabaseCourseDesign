@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.studentInformation.mapper.RewardCodeMapper">
+
+    <resultMap type="RewardCode" id="RewardCodeResult">
+        <result property="code"    column="code"    />
+        <result property="description"    column="description"    />
+    </resultMap>
+
+    <sql id="selectRewardCodeVo">
+        select code, description from reward_code
+    </sql>
+
+    <select id="selectRewardCodeList" parameterType="RewardCode" resultMap="RewardCodeResult">
+        <include refid="selectRewardCodeVo"/>
+        <where>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+    </select>
+
+    <select id="selectRewardCodeByCode" parameterType="String" resultMap="RewardCodeResult">
+        <include refid="selectRewardCodeVo"/>
+        where code = #{code}
+    </select>
+
+    <insert id="insertRewardCode" parameterType="RewardCode">
+        insert into reward_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null and code != ''">code,</if>
+            <if test="description != null and description != ''">description,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null and code != ''">#{code},</if>
+            <if test="description != null and description != ''">#{description},</if>
+        </trim>
+    </insert>
+
+    <update id="updateRewardCode" parameterType="RewardCode">
+        update reward_code
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="description != null and description != ''">description = #{description},</if>
+        </trim>
+        where code = #{code}
+    </update>
+
+    <delete id="deleteRewardCodeByCode" parameterType="String">
+        delete from reward_code where code = #{code}
+    </delete>
+
+    <delete id="deleteRewardCodeByCodes" parameterType="String">
+        delete from reward_code where code in
+        <foreach item="code" collection="array" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </delete>
+</mapper>

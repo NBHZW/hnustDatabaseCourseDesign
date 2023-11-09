@@ -27,13 +27,13 @@
       <el-table-column label="角色编号" align="center" prop="roleId" />
       <el-table-column label="角色名称" align="center" prop="roleName" />
       <el-table-column label="权限字符" align="center" prop="roleKey" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="入学时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination v-show="total>0" :total="total" :page.sync="pageNum" :limit.sync="pageSize" />
 
     <el-form label-width="100px">

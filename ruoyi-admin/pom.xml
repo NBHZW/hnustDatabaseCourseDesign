@@ -17,6 +17,7 @@
 
     <dependencies>
 
+
         <!-- spring-boot-devtools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,6 +60,13 @@
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-generator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.spring6</groupId>
+            <artifactId>ruoyi-studentInformation</artifactId>
+            <version>3.8.5</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

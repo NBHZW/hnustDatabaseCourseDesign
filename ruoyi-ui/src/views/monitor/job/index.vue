@@ -250,7 +250,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="任务分组：">{{ jobGroupFormat(form) }}</el-form-item>
-            <el-form-item label="创建时间：">{{ form.createTime }}</el-form-item>
+            <el-form-item label="入学时间：">{{ form.createTime }}</el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="cron表达式：">{{ form.cronExpression }}</el-form-item>

@@ -1,16 +1,20 @@
 {
   "name": "ruoyi",
   "version": "3.8.5",
-  "description": "若依管理系统",
-  "author": "若依",
+  "description": "振伟学生管理系统",
+  "author": "振伟学生",
   "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "build:prod": "vue-cli-service build",
+    "dev": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
+    "build:prod": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
     "build:stage": "vue-cli-service build --mode staging",
+    "electron:serve": "vue-cli-service electron:serve",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:build:win32": "vue-cli-service electron:build --win --ia32",
     "preview": "node build/index.js --preview",
     "lint": "eslint --ext .js,.vue src"
   },
+
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -83,6 +87,9 @@
     "node": ">=8.9",
     "npm": ">= 3.0.0"
   },
+
+
+
   "browserslist": [
     "> 1%",
     "last 2 versions"

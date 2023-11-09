@@ -100,7 +100,7 @@ public class Constants
     public static final String JWT_AVATAR = "avatar";
 
     /**
-     * 创建时间
+     * 入学时间
      */
     public static final String JWT_CREATED = "created";
 

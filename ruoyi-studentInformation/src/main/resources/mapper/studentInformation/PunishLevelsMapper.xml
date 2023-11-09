@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.studentInformation.mapper.PunishLevelsMapper">
+
+    <resultMap type="PunishLevels" id="PunishLevelsResult">
+        <result property="id"    column="id"    />
+        <result property="code"    column="code"    />
+        <result property="description"    column="description"    />
+    </resultMap>
+
+    <sql id="selectPunishLevelsVo">
+        select id, code, description from punish_levels
+    </sql>
+
+    <select id="selectPunishLevelsList" parameterType="PunishLevels" resultMap="PunishLevelsResult">
+        <include refid="selectPunishLevelsVo"/>
+        <where>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+    </select>
+
+    <select id="selectPunishLevelsById" parameterType="Long" resultMap="PunishLevelsResult">
+        <include refid="selectPunishLevelsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPunishLevels" parameterType="PunishLevels" useGeneratedKeys="true" keyProperty="id">
+        insert into punish_levels
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null and code != ''">code,</if>
+            <if test="description != null and description != ''">description,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null and code != ''">#{code},</if>
+            <if test="description != null and description != ''">#{description},</if>
+        </trim>
+    </insert>
+
+    <update id="updatePunishLevels" parameterType="PunishLevels">
+        update punish_levels
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="code != null and code != ''">code = #{code},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePunishLevelsById" parameterType="Long">
+        delete from punish_levels where id = #{id}
+    </delete>
+
+    <delete id="deletePunishLevelsByIds" parameterType="String">
+        delete from punish_levels where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

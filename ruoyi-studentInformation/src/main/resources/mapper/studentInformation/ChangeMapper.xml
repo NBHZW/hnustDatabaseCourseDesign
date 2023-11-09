@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.studentInformation.mapper.ChangeMapper">
+
+    <resultMap type="Change" id="ChangeResult">
+        <result property="id"    column="id"    />
+        <result property="studentId"    column="student_id"    />
+        <result property="changes"    column="changes"    />
+        <result property="recTime"    column="rec_time"    />
+        <result property="description"    column="description"    />
+    </resultMap>
+
+    <sql id="selectChangeVo">
+        select id, student_id, changes, rec_time, description from changess
+    </sql>
+
+    <select id="selectChangeList" parameterType="Change" resultMap="ChangeResult">
+        <include refid="selectChangeVo"/>
+        <where>
+            <if test="studentId != null  and studentId != ''"> and student_id like concat('%', #{studentId}, '%')</if>
+            <if test="changes != null "> and changes = #{changes}</if>
+            <if test="recTime != null "> and rec_time = #{recTime}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+    </select>
+
+    <select id="selectChangeById" parameterType="Long" resultMap="ChangeResult">
+        <include refid="selectChangeVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertChange" parameterType="Change" useGeneratedKeys="true" keyProperty="id">
+        insert into changess
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">student_id,</if>
+            <if test="changes != null">changes,</if>
+            <if test="recTime != null">rec_time,</if>
+            <if test="description != null">description,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">#{studentId},</if>
+            <if test="changes != null">#{changes},</if>
+            <if test="recTime != null">#{recTime},</if>
+            <if test="description != null">#{description},</if>
+        </trim>
+    </insert>
+
+    <update id="updateChange" parameterType="Change">
+        update changess
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">student_id = #{studentId},</if>
+            <if test="changes != null">changes = #{changes},</if>
+            <if test="recTime != null">rec_time = #{recTime},</if>
+            <if test="description != null">description = #{description},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChangeById" parameterType="Long">
+        delete from changess where id = #{id}
+    </delete>
+
+    <delete id="deleteChangeByIds" parameterType="String">
+        delete from changess where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

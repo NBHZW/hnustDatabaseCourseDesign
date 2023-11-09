@@ -130,7 +130,7 @@ public class SysUserController extends BaseController
         }
         else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user))
         {
-            return error("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
+            return error("新增用户'" + user.getUserName() + "'失败，学号已存在");
         }
         else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user))
         {
@@ -157,7 +157,7 @@ public class SysUserController extends BaseController
         }
         else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user))
         {
-            return error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
+            return error("修改用户'" + user.getUserName() + "'失败，学号已存在");
         }
         else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user))
         {

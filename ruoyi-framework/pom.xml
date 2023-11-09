@@ -59,6 +59,13 @@
             <artifactId>ruoyi-system</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.spring6</groupId>
+            <artifactId>ruoyi-studentInformation</artifactId>
+            <version>3.8.5</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

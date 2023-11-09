@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.studentInformation.mapper.PersonsituationMapper">
+
+    <resultMap type="Personsituation" id="PersonsituationResult">
+        <result property="id"    column="id"    />
+        <result property="studentId"    column="studentId"    />
+        <result property="name"    column="name"    />
+        <result property="personChange"    column="personChange"    />
+        <result property="personReward"    column="personReward"    />
+        <result property="personPunishment"    column="personPunishment"    />
+    </resultMap>
+
+    <sql id="selectPersonsituationVo">
+        select id, studentId, name, personChange, personReward, personPunishment from personsituation
+    </sql>
+
+    <select id="selectPersonsituationList" parameterType="Personsituation" resultMap="PersonsituationResult">
+        <include refid="selectPersonsituationVo"/>
+        <where>
+            <if test="studentId != null  and studentId != ''"> and studentId like concat('%', #{studentId}, '%')</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="personChange != null  and personChange != ''"> and personChange = #{personChange}</if>
+            <if test="personReward != null  and personReward != ''"> and personReward = #{personReward}</if>
+            <if test="personPunishment != null  and personPunishment != ''"> and personPunishment = #{personPunishment}</if>
+        </where>
+    </select>
+
+    <select id="selectPersonsituationById" parameterType="Long" resultMap="PersonsituationResult">
+        <include refid="selectPersonsituationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPersonsituation" parameterType="Personsituation" useGeneratedKeys="true" keyProperty="id">
+        insert into personsituation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">studentId,</if>
+            <if test="name != null">name,</if>
+            <if test="personChange != null">personChange,</if>
+            <if test="personReward != null">personReward,</if>
+            <if test="personPunishment != null">personPunishment,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">#{studentId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="personChange != null">#{personChange},</if>
+            <if test="personReward != null">#{personReward},</if>
+            <if test="personPunishment != null">#{personPunishment},</if>
+        </trim>
+    </insert>
+
+    <update id="updatePersonsituation" parameterType="Personsituation">
+        update personsituation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">studentId = #{studentId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="personChange != null">personChange = #{personChange},</if>
+            <if test="personReward != null">personReward = #{personReward},</if>
+            <if test="personPunishment != null">personPunishment = #{personPunishment},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePersonsituationById" parameterType="Long">
+        delete from personsituation where id = #{id}
+    </delete>
+
+    <delete id="deletePersonsituationByIds" parameterType="String">
+        delete from personsituation where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

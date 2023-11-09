@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.studentInformation.mapper.RewardMapper">
+
+    <resultMap type="Reward" id="RewardResult">
+        <result property="id"    column="id"    />
+        <result property="studentId"    column="student_id"    />
+        <result property="levels"    column="levels"    />
+        <result property="recTime"    column="rec_time"    />
+        <result property="description"    column="description"    />
+    </resultMap>
+
+    <sql id="selectRewardVo">
+        select id, student_id, levels, rec_time, description from reward
+    </sql>
+
+    <select id="selectRewardList" parameterType="Reward" resultMap="RewardResult">
+        <include refid="selectRewardVo"/>
+        <where>
+            <if test="studentId != null  and studentId != ''"> and student_id = #{studentId}</if>
+            <if test="levels != null "> and levels = #{levels}</if>
+            <if test="recTime != null "> and rec_time = #{recTime}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+    </select>
+
+    <select id="selectRewardById" parameterType="Long" resultMap="RewardResult">
+        <include refid="selectRewardVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertReward" parameterType="Reward" useGeneratedKeys="true" keyProperty="id">
+        insert into reward
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">student_id,</if>
+            <if test="levels != null">levels,</if>
+            <if test="recTime != null">rec_time,</if>
+            <if test="description != null">description,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">#{studentId},</if>
+            <if test="levels != null">#{levels},</if>
+            <if test="recTime != null">#{recTime},</if>
+            <if test="description != null">#{description},</if>
+        </trim>
+    </insert>
+
+    <update id="updateReward" parameterType="Reward">
+        update reward
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">student_id = #{studentId},</if>
+            <if test="levels != null">levels = #{levels},</if>
+            <if test="recTime != null">rec_time = #{recTime},</if>
+            <if test="description != null">description = #{description},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRewardById" parameterType="Long">
+        delete from reward where id = #{id}
+    </delete>
+
+    <delete id="deleteRewardByIds" parameterType="String">
+        delete from reward where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

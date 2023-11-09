@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.studentInformation.mapper.PunishmentMapper">
+
+    <resultMap type="Punishment" id="PunishmentResult">
+        <result property="id"    column="id"    />
+        <result property="studentId"    column="student_id"    />
+        <result property="levels"    column="levels"    />
+        <result property="recTime"    column="rec_time"    />
+        <result property="enable"    column="enable"    />
+        <result property="description"    column="description"    />
+    </resultMap>
+
+    <sql id="selectPunishmentVo">
+        select id, student_id, levels, rec_time, enable, description from punishment
+    </sql>
+
+    <select id="selectPunishmentList" parameterType="Punishment" resultMap="PunishmentResult">
+        <include refid="selectPunishmentVo"/>
+        <where>
+            <if test="studentId != null  and studentId != ''"> and student_id = #{studentId}</if>
+            <if test="levels != null  and levels != ''"> and levels = #{levels}</if>
+            <if test="recTime != null "> and rec_time = #{recTime}</if>
+            <if test="enable != null  and enable != ''"> and enable = #{enable}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+    </select>
+
+    <select id="selectPunishmentById" parameterType="Long" resultMap="PunishmentResult">
+        <include refid="selectPunishmentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPunishment" parameterType="Punishment" useGeneratedKeys="true" keyProperty="id">
+        insert into punishment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">student_id,</if>
+            <if test="levels != null and levels != ''">levels,</if>
+            <if test="recTime != null">rec_time,</if>
+            <if test="enable != null and enable != ''">enable,</if>
+            <if test="description != null">description,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">#{studentId},</if>
+            <if test="levels != null and levels != ''">#{levels},</if>
+            <if test="recTime != null">#{recTime},</if>
+            <if test="enable != null and enable != ''">#{enable},</if>
+            <if test="description != null">#{description},</if>
+        </trim>
+    </insert>
+
+    <update id="updatePunishment" parameterType="Punishment">
+        update punishment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="studentId != null and studentId != ''">student_id = #{studentId},</if>
+            <if test="levels != null and levels != ''">levels = #{levels},</if>
+            <if test="recTime != null">rec_time = #{recTime},</if>
+            <if test="enable != null and enable != ''">enable = #{enable},</if>
+            <if test="description != null">description = #{description},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePunishmentById" parameterType="Long">
+        delete from punishment where id = #{id}
+    </delete>
+
+    <delete id="deletePunishmentByIds" parameterType="String">
+        delete from punishment where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

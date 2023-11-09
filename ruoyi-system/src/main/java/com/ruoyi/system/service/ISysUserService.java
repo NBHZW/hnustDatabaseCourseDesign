@@ -75,7 +75,7 @@ public interface ISysUserService
     public boolean checkUserNameUnique(SysUser user);
 
     /**
-     * 校验手机号码是否唯一
+     * 校验学号是否唯一
      *
      * @param user 用户信息
      * @return 结果

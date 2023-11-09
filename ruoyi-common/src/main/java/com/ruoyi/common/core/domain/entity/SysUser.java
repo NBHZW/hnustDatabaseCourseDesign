@@ -41,8 +41,8 @@ public class SysUser extends BaseEntity
     @Excel(name = "用户邮箱")
     private String email;
 
-    /** 手机号码 */
-    @Excel(name = "手机号码")
+    /** 学号 */
+    @Excel(name = "学号")
     private String phonenumber;
 
     /** 用户性别 */
@@ -166,7 +166,7 @@ public class SysUser extends BaseEntity
         this.email = email;
     }
 
-    @Size(min = 0, max = 11, message = "手机号码长度不能超过11个字符")
+    @Size(min = 0, max = 11, message = "学号长度不能超过11个字符")
     public String getPhonenumber()
     {
         return phonenumber;

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.studentInformation.mapper.ChangeCodeMapper">
+
+    <resultMap type="ChangeCode" id="ChangeCodeResult">
+        <result property="id"    column="id"    />
+        <result property="code"    column="code"    />
+        <result property="description"    column="description"    />
+    </resultMap>
+
+    <sql id="selectChangeCodeVo">
+        select id, code, description from change_code1
+    </sql>
+
+    <select id="selectChangeCodeList" parameterType="ChangeCode" resultMap="ChangeCodeResult">
+        <include refid="selectChangeCodeVo"/>
+        <where>
+            <if test="code != null "> and code = #{code}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+    </select>
+
+    <select id="selectChangeCodeById" parameterType="Long" resultMap="ChangeCodeResult">
+        <include refid="selectChangeCodeVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertChangeCode" parameterType="ChangeCode" useGeneratedKeys="true" keyProperty="id">
+        insert into change_code1
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">code,</if>
+            <if test="description != null and description != ''">description,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">#{code},</if>
+            <if test="description != null and description != ''">#{description},</if>
+        </trim>
+    </insert>
+
+    <update id="updateChangeCode" parameterType="ChangeCode">
+        update change_code1
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="code != null">code = #{code},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChangeCodeById" parameterType="Long">
+        delete from change_code1 where id = #{id}
+    </delete>
+
+    <delete id="deleteChangeCodeByIds" parameterType="String">
+        delete from change_code1 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

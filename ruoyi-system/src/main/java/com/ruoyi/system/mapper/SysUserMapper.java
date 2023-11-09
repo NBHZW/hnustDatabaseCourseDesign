@@ -110,9 +110,9 @@ public interface SysUserMapper
     public SysUser checkUserNameUnique(String userName);
 
     /**
-     * 校验手机号码是否唯一
+     * 校验学号是否唯一
      *
-     * @param phonenumber 手机号码
+     * @param phonenumber 学号
      * @return 结果
      */
     public SysUser checkPhoneUnique(String phonenumber);

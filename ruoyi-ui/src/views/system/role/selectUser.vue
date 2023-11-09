@@ -10,10 +10,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="手机号码" prop="phonenumber">
+      <el-form-item label="学号" prop="phonenumber">
         <el-input
           v-model="queryParams.phonenumber"
-          placeholder="请输入手机号码"
+          placeholder="请输入学号"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -35,7 +35,7 @@
             <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+        <el-table-column label="入学时间" align="center" prop="createTime" width="180">
           <template slot-scope="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
